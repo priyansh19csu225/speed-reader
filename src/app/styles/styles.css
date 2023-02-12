@@ -1,0 +1,55 @@
+@font-face{
+  font-family:circular std;
+  font-style:normal;
+  font-weight:450;
+  src:local('Circular Std'),url("../../fonts/circular-std-font-family/CircularStd-Book.woff") format('woff')
+}
+
+@font-face{
+  font-family:circular std;
+  font-style:italic;
+  font-weight:450;
+  src:local('Circular Std'),url("../../fonts/circular-std-font-family/CircularStd-BookItalic.woff") format('woff')
+}
+
+@font-face{
+  font-family:circular std;
+  font-style:normal;
+  font-weight:500;
+  src:local('Circular Std'),url("../../fonts/circular-std-font-family/CircularStd-Medium.woff") format('woff')
+}
+
+@font-face{
+  font-family:circular std;
+  font-style:italic;
+  font-weight:500;
+  src:local('Circular Std'),url("../../fonts/circular-std-font-family/CircularStd-MediumItalic.woff") format('woff')
+}
+
+@font-face{
+  font-family:circular std;
+  font-style:normal;
+  font-weight:700;
+  src:local('Circular Std'),url("../../fonts/circular-std-font-family/CircularStd-Bold.woff") format('woff')
+}
+
+@font-face{
+  font-family:circular std;
+  font-style:italic;
+  font-weight:700;
+  src:local('Circular Std'),url("../../fonts/circular-std-font-family/CircularStd-BoldItalic.woff") format('woff')
+}
+
+@font-face{
+  font-family:circular std;
+  font-style:normal;
+  font-weight:900;
+  src:local('Circular Std'),url("../../fonts/circular-std-font-family/CircularStd-Black.woff") format('woff')
+}
+
+@font-face{
+  font-family:circular std;
+  font-style:italic;
+  font-weight:900;
+  src:local('Circular Std'),url("../../fonts/circular-std-font-family/CircularStd-BlackItalic.woff") format('woff')
+}
