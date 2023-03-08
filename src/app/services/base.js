@@ -12,7 +12,7 @@ axiosClient.interceptors.request.use(
 );
 
 
-axiosClient.defaults.baseURL = '/api/v1';
+// axiosClient.defaults.baseURL = '/api/v1';
 
 axiosClient.defaults.headers = {
   'Content-Type': 'application/json',

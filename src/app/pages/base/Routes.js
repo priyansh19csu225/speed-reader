@@ -8,6 +8,8 @@ import Error from '../error/Error';
 
 import ErrorFallback from '../error/ErrorFallback';
 import LandingPage from '../../components/landingPage/LandingPage';
+import AddComprehension from '../comprehension/AddComprehension';
+import URL from '../../constants/urls';
 
 
 function RoutesComponent() {
@@ -21,7 +23,8 @@ function RoutesComponent() {
       <BrowserRouter className="mt-3">
        
       <Routes>
-       <Route path="/" element = { <LandingPage/>}/>
+       <Route path={URL.HOME} element = { <LandingPage/>}/>
+       <Route path={URL.COMPREHENSION} element = { <AddComprehension/>}/>
           <Route path="*" element={<Error />} />
         </Routes>
 

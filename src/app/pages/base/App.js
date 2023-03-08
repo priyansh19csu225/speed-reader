@@ -21,7 +21,7 @@ function App() {
       showSnackBar({
         setopen: false,
         message: '',
-        severity: '',
+        severity: 'success',
       })
     );
   };

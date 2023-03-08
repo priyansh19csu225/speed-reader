@@ -1,5 +1,6 @@
 const URL = {
   HOME: '/',
+  COMPREHENSION:'/add',
 };
 export default URL;
 

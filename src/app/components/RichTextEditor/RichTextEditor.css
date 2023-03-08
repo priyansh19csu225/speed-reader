@@ -1,0 +1,27 @@
+div.DraftEditor-root {
+    overflow-y: auto;
+}
+
+div.DraftEditor-editorContainer,
+div.public-DraftEditor-content {
+    height: 100%;
+}
+
+div.public-DraftStyleDefault-block {
+    margin-bottom: 0%;
+    margin-top: 0%;
+}
+
+.public-DraftStyleDefault-unorderedListItem {
+    margin-top: 0.7em;
+    margin-bottom: 0.7em;
+}
+
+.public-DraftStyleDefault-orderedListItem {
+    margin-top: 0.7em;
+    margin-bottom: 0.7em;
+}
+
+.public-DraftStyleDefault-unorderedListItem span {
+    line-height: 1.2em;
+}
