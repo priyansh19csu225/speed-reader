@@ -4,6 +4,7 @@ const URL = {
   COMPREHENSION: '/comprehension',
   READ: '/read',
   ALL_COMPREHENSIONS: '/comprehensions',
+  QUESTIONS: '/questions',
 };
 export default URL;
 

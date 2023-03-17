@@ -1,4 +1,7 @@
+import { Link } from '@mui/material';
 import React from 'react';
+import { NavLink } from 'react-router-dom';
+import URL from '../../constants/urls.js';
 import SpeedReader from './SpeedReader.jsx';
 // import SpeedReaderComp from "react-speedread-component";
 
@@ -281,15 +284,19 @@ class SpeedReaderViewer extends React.Component {
             WPM
           </div>
           <div>
-            {this.props.isComprehension && (
-              <button
-                className=" m-2"
-                onClick={this.toggleIsPlaying}
-                disabled={this.getProgressPercent(this.state.progress) != 100}
-              >
-                Proceed to questions
-              </button>
-            )}
+            {this.props.isComprehension &&
+              this.getProgressPercent(this.state.progress) == 100 && (
+                <button className=" m-2">
+                  <Link
+                    to={`${URL.QUESTIONS}`}
+                    underline="none"
+                    className="color-1D8FF2"
+                    as={NavLink}
+                  >
+                    Proceed to questions
+                  </Link>
+                </button>
+              )}
           </div>
         </div>
 

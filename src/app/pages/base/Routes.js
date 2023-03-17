@@ -12,6 +12,7 @@ import ReadMaster from '../../components/viewer/ReadMaster';
 import GetData from '../rsvp test/GetData';
 import Header from '../../components/headerComponent/Header';
 import AllComprehensions from '../rsvp test/AllComprehensions';
+import Questions from '../rsvp test/Questions';
 
 function RoutesComponent() {
   // function RoutesComponent(props) {
@@ -30,6 +31,7 @@ function RoutesComponent() {
             path={URL.ALL_COMPREHENSIONS}
             element={<AllComprehensions />}
           />
+          <Route path={URL.QUESTIONS} element={<Questions />} />
           <Route path="*" element={<Error />} />
         </Routes>
       </BrowserRouter>

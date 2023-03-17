@@ -5,7 +5,8 @@ const UI = {
   // Component Name Example Landing Page
 
   // Error
-  PAGE_NOT_FOUND: 'Page Not Found',
+  PAGE_NOT_FOUND:
+    'This space is blank right now, but every story began with a blank page.',
 };
 
 export default UI;

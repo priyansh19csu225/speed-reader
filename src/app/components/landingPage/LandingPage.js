@@ -1,12 +1,11 @@
 import { Button } from '@mui/material';
 import React from 'react';
+import UI from '../../constants/ui';
 
 function LandingPage() {
- return (
-    <div className="container ms-3 me-5 p-2">
-      Hello Priyansh
-      <Button>Hello Pulkit</Button>
-      <a href="">This is Srishti</a>
+  return (
+    <div className="m-auto text-center">
+      <h1>{UI.PAGE_NOT_FOUND}</h1>
     </div>
   );
 }
