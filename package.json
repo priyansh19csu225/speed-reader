@@ -62,6 +62,10 @@
       "react-app/jest"
     ]
   },
+  "eslintIgnore": [
+    "Viewer.jsx",
+    "SpeedReader.jsx"
+  ],
   "browserslist": {
     "production": [
       ">0.2%",

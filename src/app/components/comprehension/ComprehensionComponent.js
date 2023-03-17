@@ -1,5 +1,5 @@
 import React from 'react';
-import {  useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useFormContext, Controller } from 'react-hook-form';
 import { Button, TextField } from '@mui/material';
 import Select from 'react-select';
@@ -8,18 +8,24 @@ import { showSnackBar } from '../../../redux/snackBarSlice';
 import { toolbarOptions } from '../../constants/toolbar.constants';
 import AddMCQ from './AddMCQ';
 import { postRequest } from '../../services';
+import { API_URL } from '../../constants/apiUrls';
 
 function ComprehensionComponent() {
   const { control, register, getValues, handleSubmit } = useFormContext();
   const dispatch = useDispatch();
 
   const onSubmit = () => {
-   // eslint-disable-next-line
-    if (confirm("This will send comprehension to database server. Be sure that you have added all mcqs. If misclicked, press cancel, and continue adding mcqs from wherever you left.") === false) {
-     return;
-    } 
+    // eslint-disable-next-line
+    if (
+      confirm(
+        'This will send comprehension to database server. Be sure that you have added all mcqs. If misclicked, press cancel, and continue adding mcqs from wherever you left.'
+      ) === false
+    ) {
+      return;
+    }
     const text = getValues();
-    postRequest('/insert',text).then((res) => {
+    postRequest(API_URL.INSERT, text)
+      .then((res) => {
         dispatch(
           showSnackBar({
             setopen: true,
@@ -27,12 +33,12 @@ function ComprehensionComponent() {
             severity: 'success',
           })
         );
-    })
-    .catch((error) => {    
+      })
+      .catch((error) => {
         dispatch(
           showSnackBar({
             setopen: true,
-            message: error.msg || "Error",
+            message: error.msg || 'Error',
             severity: 'error',
           })
         );
@@ -45,7 +51,8 @@ function ComprehensionComponent() {
   ];
 
   return (
-    <div className="col-md-12">
+    <div className="col-md-12 subHeader m-3 p-3">
+      <h4 className="center-text m-2 p-2">Add a New Comprehension</h4>
       <label htmlFor="title" className="form-label col-12">
         Comprehension Passage Title:
         <TextField
@@ -85,16 +92,15 @@ function ComprehensionComponent() {
 
       <AddMCQ />
 
-<div className='d-flex justify-content-center w-100' >
-
-      <Button
-        onClick={handleSubmit(onSubmit)}
-        type="button"
-        variant="contained"
+      <div className="d-flex justify-content-center w-100">
+        <Button
+          onClick={handleSubmit(onSubmit)}
+          type="button"
+          variant="contained"
         >
-        Submit Passage
-      </Button>
-          </div>
+          Submit Passage
+        </Button>
+      </div>
     </div>
   );
 }

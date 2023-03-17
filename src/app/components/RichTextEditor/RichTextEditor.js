@@ -11,7 +11,14 @@ import { EMPTY_OBJECT } from '../../constants';
 import './RichTextEditor.css';
 
 function RichTextEditor(props) {
-  const { onChange, value, toolbarOptions, placeholder, editorHeight } = props;
+  const {
+    onChange,
+    value,
+    toolbarOptions,
+    placeholder,
+    editorHeight,
+    readOnly,
+  } = props;
   const valueInitialized = useRef(true);
   let defaultValueProps;
   const initialFieldValue = value;
@@ -63,6 +70,7 @@ function RichTextEditor(props) {
       )}
       onEditorStateChange={onEditorStateChange}
       toolbar={toolbarOptions}
+      readOnly={readOnly}
     />
   );
 }
@@ -73,6 +81,7 @@ RichTextEditor.propTypes = {
   toolbarOptions: PropTypes.object,
   placeholder: PropTypes.string,
   editorHeight: PropTypes.string,
+  readOnly: PropTypes.bool,
 };
 
 RichTextEditor.defaultProps = {
@@ -81,5 +90,6 @@ RichTextEditor.defaultProps = {
   placeholder: undefined,
   toolbarOptions: EMPTY_OBJECT,
   editorHeight: undefined,
+  readOnly: false,
 };
 export default RichTextEditor;

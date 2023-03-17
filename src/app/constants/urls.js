@@ -1,6 +1,9 @@
 const URL = {
   HOME: '/',
-  COMPREHENSION:'/add',
+  ADD_COMPREHENSION: '/add',
+  COMPREHENSION: '/comprehension',
+  READ: '/read',
+  ALL_COMPREHENSIONS: '/comprehensions',
 };
 export default URL;
 

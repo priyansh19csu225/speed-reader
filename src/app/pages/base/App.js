@@ -6,12 +6,11 @@ import RoutesComponent from './Routes';
 
 import { showSnackBar } from '../../../redux/snackBarSlice';
 import ErrorSnackBar from '../../components/snackBar/ErrorSnackBar';
+import Footer from '../../components/footer/Footer';
 
 function App() {
-
   const snackBarShow = useSelector((state) => state.globalSnackbar);
   const dispatch = useDispatch();
-  
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -26,12 +25,13 @@ function App() {
     );
   };
 
-  return(
+  return (
     <>
       <RoutesComponent setShowFooter />
-  
+      <Footer />
       <ErrorSnackBar opensnackbar={snackBarShow} handleClose={handleClose} />
-    </>);
+    </>
+  );
 }
 
 export default App;
