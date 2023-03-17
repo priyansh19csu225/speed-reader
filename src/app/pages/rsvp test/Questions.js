@@ -1,14 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { EMPTY_ARRAY } from '../../constants';
 
 function Questions() {
   const questions = useSelector(
     (state) => state.user.userInfo.selectedComprehension.questions
   );
-  useEffect(() => {
-    if (questions) console.log(questions);
-  }, EMPTY_ARRAY);
   const [answers, setAnswers] = useState([]);
 
   const handleChange = (index, option) => {
@@ -19,7 +15,7 @@ function Questions() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(answers);
+    // console.log(answers);
   };
   return (
     <div className="d-flex container subHeader justify-content-center">
