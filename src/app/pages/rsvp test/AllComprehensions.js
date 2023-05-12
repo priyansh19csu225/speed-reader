@@ -29,7 +29,7 @@ function AllComprehensions() {
   };
   const sampleJSON = {
     object: {
-      1: 'BEGINEER',
+      1: 'BEGINNER',
       10: 'INTERMEDIATE',
       20: 'EXPERT',
     },

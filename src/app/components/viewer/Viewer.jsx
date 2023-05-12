@@ -1,4 +1,4 @@
-import { Link } from '@mui/material';
+import { Button, Link } from '@mui/material';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import URL from '../../constants/urls.js';
@@ -115,12 +115,14 @@ class SpeedReaderViewer extends React.Component {
     document.addEventListener('mousemove', this.setProgressPercent);
     document.addEventListener('click', this.removeDragTarget);
     document.addEventListener('keydown', this.handleShortcuts);
+    document.body.style.overflow = 'hidden';
   };
 
   componentWillUnmount = () => {
     document.removeEventListener('mousemove', this.setProgressPercent);
     document.removeEventListener('click', this.removeDragTarget);
     document.removeEventListener('keydown', this.handleShortcuts);
+    document.body.style.overflow = 'auto';
   };
 
   handleShortcuts = (e) => {
@@ -220,7 +222,7 @@ class SpeedReaderViewer extends React.Component {
                 speed={this.state.speed || this.getDefaultState().speed}
                 isPlaying={this.state.isPlaying}
                 setProgress={this.state.setProgress}
-                hasEndedCallback={this.pause}
+                hasEndedCallback={this.state.isPlaying}
                 progressCallback={this.progress}
                 chunk={this.state.chunk}
                 reset={this.state.resetTs}
@@ -252,24 +254,37 @@ class SpeedReaderViewer extends React.Component {
         </div>
 
         <div>
-          <button className=" m-2" onClick={this.toggleIsPlaying}>
-            {this.getProgressPercent(this.state.progress) == 100 ||
-            this.getProgressPercent(this.state.progress) == 0
-              ? 'Play'
-              : 'Pause'}
-          </button>
+          <Button
+            className=" m-2"
+            variant="contained"
+            onClick={this.toggleIsPlaying}
+          >
+            {this.state.isPlaying ? 'Pause' : 'Play'}
+          </Button>
           <div></div>
-          <button onClick={this.reset}>Reset</button>
+          <Button onClick={this.reset} variant="contained" color="secondary">
+            Reset
+          </Button>
         </div>
 
         <div>
-          <button className=" m-2" onClick={this.decreaseChunk}>
+          <Button
+            className=" m-2"
+            variant="contained"
+            color="error"
+            onClick={this.decreaseChunk}
+          >
             -
-          </button>
+          </Button>
           words per flash: {this.state.chunk}
-          <button className=" m-2" onClick={this.increaseChunk}>
+          <Button
+            className=" m-2"
+            variant="contained"
+            color="success"
+            onClick={this.increaseChunk}
+          >
             +
-          </button>
+          </Button>
         </div>
 
         <div className=" m-2">
