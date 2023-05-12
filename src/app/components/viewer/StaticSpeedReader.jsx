@@ -2,9 +2,9 @@ import { Button, Typography } from '@mui/material';
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import URL from '../../constants/urls.js';
-import SpeedReader from './SpeedReader.jsx';
+import SpeedReaderComp from 'react-speedread-component';
 
-class SpeedReaderViewer extends React.Component {
+class StaticSpeedReader extends React.Component {
   getDefaultState = () => ({
     inputText: this.props.textArea,
     isPlaying: false,
@@ -115,14 +115,12 @@ class SpeedReaderViewer extends React.Component {
     document.addEventListener('mousemove', this.setProgressPercent);
     document.addEventListener('click', this.removeDragTarget);
     document.addEventListener('keydown', this.handleShortcuts);
-    document.body.style.overflow = 'hidden';
   };
 
   componentWillUnmount = () => {
     document.removeEventListener('mousemove', this.setProgressPercent);
     document.removeEventListener('click', this.removeDragTarget);
     document.removeEventListener('keydown', this.handleShortcuts);
-    document.body.style.overflow = 'auto';
   };
 
   handleShortcuts = (e) => {
@@ -186,26 +184,27 @@ class SpeedReaderViewer extends React.Component {
   render = () => {
     const outerStyle = {
       display: 'inline-block',
-      height: 300,
-      width: 600,
+      height: 'auto',
+      width: 900,
       border: '1px solid black',
       margin: '10px',
+      padding: '10px',
     };
 
     const frameStyle = {
       border: 'transparent',
       borderWidth: 1,
-      borderLeftStyle: 'none',
-      borderRightStyle: 'none',
-      position: 'relative',
-      top: '46%',
-      transform: 'translateY(-51%)', // -1% for snap to pixel..
+      // borderLeftStyle: 'none',
+      // borderRightStyle: 'none',
+      // position: 'relative',
+      // top: '46%',
+      // transform: 'translateY(-51%)', // -1% for snap to pixel..
       backgroundColor: '#FFF',
     };
 
     const speedReaderStyle = {
       transform: `translate(${this.state.chunk === 1 ? 0 : 0}%)`,
-      fontSize: '200%',
+      fontSize: '120%',
     };
 
     const progressBar = this.progressBar(this.state.progress);
@@ -214,20 +213,20 @@ class SpeedReaderViewer extends React.Component {
         <div style={outerStyle} className="center-text">
           <div style={frameStyle}>
             <div style={speedReaderStyle}>
-              <SpeedReader
-                renderReader={this.renderReader}
-                inputText={this.state.inputText}
-                speed={this.state.speed || this.getDefaultState().speed}
-                isPlaying={this.state.isPlaying}
-                setProgress={this.state.setProgress}
-                hasEndedCallback={() => this.setState({ readOnce: true })}
-                progressCallback={this.progress}
-                chunk={this.state.chunk}
-                reset={this.state.resetTs}
-                trim={{ regex: /\.|,|\?|!/ }}
-                offset={{ regex: /\.|,|\?|!/, duration: 0.5 }}
-                blank={{ regex: /\.|\?|!/, duration: 0.5 }}
-              />
+              <div
+                className="d-flex flex-column 
+align-items-center flex-wrap"
+              >
+                <SpeedReaderComp
+                  ref={this.buttonRef}
+                  article={this.state.inputText}
+                  unreadStyle={{ color: 'green' }}
+                  activeStyle={{ color: 'orange' }}
+                  readStyle={{ color: 'green' }}
+                  wpm={this.state.speed}
+                />
+              </div>
+              ;
             </div>
           </div>
         </div>
@@ -356,4 +355,4 @@ class SpeedReaderViewer extends React.Component {
   };
 }
 
-export default SpeedReaderViewer;
+export default StaticSpeedReader;

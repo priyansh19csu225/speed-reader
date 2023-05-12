@@ -16,6 +16,7 @@ function Header() {
   const [anchorEl, setAnchorEl] = useState(null);
   const handleOpenActionMenu = (event) => {
     setAnchorEl(event.currentTarget);
+    document.body.style.overflow = 'auto';
   };
   const open = Boolean(anchorEl);
   const onSelectNavOption = () => {
