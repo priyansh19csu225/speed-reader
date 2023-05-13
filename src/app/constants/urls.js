@@ -3,6 +3,7 @@ const URL = {
   ADD_COMPREHENSION: '/add',
   COMPREHENSION: '/comprehension',
   READ: '/read',
+  READ_COMPREHENSION: '/readComprehension',
   ALL_COMPREHENSIONS: '/comprehensions',
   QUESTIONS: '/questions',
 };

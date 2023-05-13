@@ -23,9 +23,14 @@ function RoutesComponent() {
         <Header />
         <Routes>
           <Route path={URL.HOME} element={<LandingPage />} />
-          <Route path={URL.READ} element={<ReadMaster />} />
+          <Route path={URL.READ} element={<ReadMaster customUserText />} />
+          <Route path={URL.READ_COMPREHENSION} element={<ReadMaster />} />
           <Route path={URL.ADD_COMPREHENSION} element={<AddComprehension />} />
-          <Route path={URL.COMPREHENSION} element={<ReadMaster />} />
+          <Route
+            path={URL.COMPREHENSION}
+            element={<ReadMaster randomComprehension />}
+          />
+          {/* <Route path={URL.DAILY_EXERCISE_COMPREHENSION} element={<ReadMaster />} /> */}
           <Route
             path={URL.ALL_COMPREHENSIONS}
             element={<AllComprehensions />}

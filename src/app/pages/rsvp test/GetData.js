@@ -7,7 +7,6 @@ import { Button, Typography } from '@mui/material';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useSelector } from 'react-redux';
 import EditorController from '../../components/RichTextEditor/EditorController';
-import { EMPTY_ARRAY } from '../../constants';
 import { API_URL } from '../../constants/apiUrls';
 import { getRequest } from '../../services';
 import { none, toolbarOptions } from '../../constants/toolbar.constants';
@@ -15,7 +14,7 @@ import COMPREHENSION_SCHEMA from './Comprehension.schema';
 import URL from '../../constants/urls';
 
 function GetData(props) {
-  const { emptyEditor } = props;
+  const { emptyEditor, randomComprehension } = props;
   const methods = useForm({
     resolver: yupResolver(COMPREHENSION_SCHEMA),
     mode: 'onChange',
@@ -26,7 +25,7 @@ function GetData(props) {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(URL.READ, {
+    navigate(URL.READ_COMPREHENSION, {
       state: {
         text: document.getElementById(divRef).innerText,
         emptyEditor,
@@ -41,8 +40,13 @@ function GetData(props) {
   const isStaticreader = useSelector((state) => state.user?.isStaticReader);
 
   useEffect(() => {
-    if (emptyEditor) return;
-    if (comprehension) {
+    if (emptyEditor) {
+      setIsLoading(true);
+      setValue('comprehension', '');
+      setTimeout(() => setIsLoading(false), 1000);
+      return;
+    }
+    if (!randomComprehension) {
       setValue('comprehension', comprehension);
       return;
     }
@@ -52,7 +56,7 @@ function GetData(props) {
         setValue('comprehension', res.data.comprehension);
       })
       .finally(() => setIsLoading(false));
-  }, EMPTY_ARRAY);
+  }, [emptyEditor, randomComprehension]);
 
   return (
     <div className="d-flex w-100 justify-content-center">
@@ -104,9 +108,11 @@ function GetData(props) {
 
 GetData.propTypes = {
   emptyEditor: PropTypes.bool,
+  randomComprehension: PropTypes.bool,
 };
 GetData.defaultProps = {
   emptyEditor: false,
+  randomComprehension: false,
 };
 
 export default GetData;

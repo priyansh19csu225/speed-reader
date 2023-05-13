@@ -25,7 +25,7 @@ function AllComprehensions() {
 
   const handleClick = (comprehension) => {
     setComprehensionRedux(dispatch, comprehension);
-    navigate(URL.COMPREHENSION);
+    navigate(URL.READ_COMPREHENSION);
   };
   const sampleJSON = {
     object: {
