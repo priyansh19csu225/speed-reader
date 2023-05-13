@@ -35,8 +35,10 @@ function GetData(props) {
   };
 
   const comprehension = useSelector(
-    (state) => state.user.userInfo.selectedComprehension.comprehension
+    (state) => state.user?.userInfo?.selectedComprehension?.comprehension
   );
+
+  const isStaticreader = useSelector((state) => state.user?.isStaticReader);
 
   useEffect(() => {
     if (emptyEditor) return;
@@ -59,7 +61,9 @@ function GetData(props) {
           <CircularProgress />
         ) : (
           <>
-            <h4 className="center-text m-2 p-2">RSVP Speed Reading Tool</h4>
+            <h4 className="center-text m-2 p-2">
+              {isStaticreader ? 'Static Read Test' : 'RSVP Speed Reading Tool'}
+            </h4>
             {emptyEditor && (
               <Typography className="center-text ">
                 Paste your text here to speed read it

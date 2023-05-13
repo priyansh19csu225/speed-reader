@@ -11,18 +11,24 @@ import { postRequest } from '../../services';
 import { API_URL } from '../../constants/apiUrls';
 
 function ComprehensionComponent() {
-  const { control, register, getValues, handleSubmit } = useFormContext();
+  const { control, register, getValues, handleSubmit, setValue, reset } =
+    useFormContext();
   const dispatch = useDispatch();
 
   const onSubmit = () => {
-    // eslint-disable-next-line
     if (
+      // eslint-disable-next-line
       confirm(
         'This will send comprehension to database server. Be sure that you have added all mcqs. If misclicked, press cancel, and continue adding mcqs from wherever you left.'
       ) === false
     ) {
       return;
     }
+    // eslint-disable-next-line
+    const length = document
+      .getElementById('getData')
+      .innerText.split(' ').length;
+    setValue('wordCount', length);
     const text = getValues();
     postRequest(API_URL.INSERT, text)
       .then((res) => {
@@ -33,6 +39,7 @@ function ComprehensionComponent() {
             severity: 'success',
           })
         );
+        reset({});
       })
       .catch((error) => {
         dispatch(
@@ -50,6 +57,7 @@ function ComprehensionComponent() {
     { value: 20, label: 'EXPERT' },
   ];
 
+  const divRef = 'getData';
   return (
     <div className="col-md-12 subHeader m-3 p-3">
       <h4 className="center-text m-2 p-2">Add a New Comprehension</h4>
@@ -65,12 +73,14 @@ function ComprehensionComponent() {
       </label>
       <label htmlFor="passage" className="form-label col-12">
         Comprehension Passage:
-        <EditorController
-          name="comprehension"
-          control={control}
-          toolbarOptions={toolbarOptions}
-          editorHeight="250px"
-        />
+        <div id={divRef}>
+          <EditorController
+            name="comprehension"
+            control={control}
+            toolbarOptions={toolbarOptions}
+            editorHeight="250px"
+          />
+        </div>
       </label>
       <label htmlFor="level" className="form-label col-12">
         Choose level

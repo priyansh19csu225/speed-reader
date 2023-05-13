@@ -2,9 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from './redux/store';
 import reportWebVitals from './reportWebVitals';
 import App from './app';
-import store from './redux/store';
 import CirularStd from './fonts/circular-std-font-family/CircularStd-Book.woff';
 
 const theme = createTheme({
@@ -34,7 +35,9 @@ ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <Provider store={store}>
-        <App />
+        <PersistGate loading={null} persistor={persistor}>
+          <App />
+        </PersistGate>
       </Provider>
     </ThemeProvider>
   </React.StrictMode>,

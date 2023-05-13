@@ -8,6 +8,7 @@ export const userSlice = createSlice({
       comprehensions: [],
       selectedComprehension: {},
     },
+    isStaticReader: false,
     pending: null,
     error: false,
   },
@@ -26,6 +27,9 @@ export const userSlice = createSlice({
     setComprehension: (state, action) => {
       state.userInfo.selectedComprehension = action.payload;
     },
+    setStaticReader: (state) => {
+      state.isStaticReader = !state.isStaticReader;
+    },
   },
 });
 
@@ -34,6 +38,7 @@ export const {
   getComprehensionsSuccess,
   getComprehensionsFailure,
   setComprehension,
+  setStaticReader,
 } = userSlice.actions;
 
 export default userSlice.reducer;

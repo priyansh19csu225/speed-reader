@@ -18,7 +18,7 @@ function AllComprehensions() {
   }, EMPTY_ARRAY);
 
   const comprehensions = useSelector(
-    (state) => state.user.userInfo.comprehensions
+    (state) => state?.user?.userInfo?.comprehensions
   );
 
   const navigate = useNavigate();
@@ -43,10 +43,10 @@ function AllComprehensions() {
         <Grid
           container
           flexDirection="row"
-          justifyContent="space-around"
+          justifyContent="center"
           alignItems="center"
         >
-          {comprehensions.map((row, index) => (
+          {comprehensions?.map((row, index) => (
             <Grid item xs={12} md={5} key={index} className="m-2 p-2">
               {/* Skill */}
               <div className="col-md-12 profile_form_box">

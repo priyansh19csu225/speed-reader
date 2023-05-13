@@ -115,14 +115,12 @@ class SpeedReaderViewer extends React.Component {
     document.addEventListener('mousemove', this.setProgressPercent);
     document.addEventListener('click', this.removeDragTarget);
     document.addEventListener('keydown', this.handleShortcuts);
-    document.body.style.overflow = 'hidden';
   };
 
   componentWillUnmount = () => {
     document.removeEventListener('mousemove', this.setProgressPercent);
     document.removeEventListener('click', this.removeDragTarget);
     document.removeEventListener('keydown', this.handleShortcuts);
-    document.body.style.overflow = 'auto';
   };
 
   handleShortcuts = (e) => {
@@ -151,6 +149,10 @@ class SpeedReaderViewer extends React.Component {
     if (e.keyCode === 40)
       //down
       this.setSpeed(this.state.speed - chgSpeed);
+
+    if (e.keyCode === 38 || e.keyCode === 40 || e.keyCode === 32) {
+      e.preventDefault();
+    }
   };
 
   removeDragTarget = () => {
@@ -165,22 +167,21 @@ class SpeedReaderViewer extends React.Component {
   renderReader = (props, state) => {
     if (!state.currentText) return <span>&nbsp;</span>;
 
-    // if (props.chunk > 1)
-    return <span>{state.currentText}</span>;
+    if (props.chunk > 1) return <span>{state.currentText}</span>;
 
-    // const fixedLeft = {
-    //   position: "absolute",
-    //   display: "inline-block",
-    //   transform: "translate(-100%)",
-    //   textAlign: "right"
-    // };
-    // return (
-    //   <span>
-    //     <span style={fixedLeft}>{state.pre}</span>
-    //     <span style={{ color: "red" }}>{state.mid}</span>
-    //     <span style={{ position: "absolute" }}>{state.post}</span>
-    //   </span>
-    // );
+    const fixedLeft = {
+      position: 'absolute',
+      display: 'inline-block',
+      transform: 'translate(-100%)',
+      textAlign: 'center',
+    };
+    return (
+      <span>
+        <span style={fixedLeft}>{state.pre}</span>
+        <span style={{ color: 'red' }}>{state.mid}</span>
+        <span style={{ position: 'absolute' }}>{state.post}</span>
+      </span>
+    );
   };
 
   render = () => {
@@ -204,7 +205,7 @@ class SpeedReaderViewer extends React.Component {
     };
 
     const speedReaderStyle = {
-      transform: `translate(${this.state.chunk === 1 ? 0 : 0}%)`,
+      transform: `translate(${this.state.chunk === 1 ? -2 : 0}%)`,
       fontSize: '200%',
     };
 
@@ -233,22 +234,15 @@ class SpeedReaderViewer extends React.Component {
         </div>
 
         <div>
-          <span
-            style={{ cursor: 'col-resize', fontFamily: 'monospace' }}
-            onMouseDown={this.setDragTarget}
-          >
-            {progressBar.bar}
-          </span>
-          <span
-            style={{
-              position: 'absolute',
-              display: 'inline-block',
-              width: '40',
-              textAlign: 'right',
-            }}
-          >
-            {progressBar.percent}
-          </span>
+          <input
+            type="range"
+            min="0"
+            max="100"
+            value={parseInt(progressBar.percent, 10)}
+            onChange={this.setDragTarget}
+          />
+          &nbsp;
+          <span>{progressBar.percent}</span>
         </div>
 
         <div>

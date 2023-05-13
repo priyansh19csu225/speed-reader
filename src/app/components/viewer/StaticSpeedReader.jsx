@@ -2,7 +2,7 @@ import { Button, Typography } from '@mui/material';
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import URL from '../../constants/urls.js';
-import SpeedReaderComp from 'react-speedread-component';
+import SpeedReader2 from './SpeedReader2.js';
 
 class StaticSpeedReader extends React.Component {
   getDefaultState = () => ({
@@ -13,17 +13,31 @@ class StaticSpeedReader extends React.Component {
     chunk: 1,
     setProgress: { timestamp: undefined },
     readOnce: false,
+    percentageRead: 0,
   });
 
-  state = this.getDefaultState();
+  constructor(props) {
+    super(props);
+    this.state = this.getDefaultState();
+    this.handlePercentageRead = this.handlePercentageRead.bind(this);
+  }
+
+  handlePercentageRead(percentage) {
+    if (percentage == 100) {
+      this.setState({ readOnce: true });
+    }
+    this.setState({ percentageRead: percentage });
+  }
 
   childRef = React.createRef();
+  buttonRef = React.createRef();
 
   toggleIsPlaying = (e) => {
     document.activeElement.blur();
     const isPlaying = this.state.isPlaying;
+    isPlaying ? this.buttonRef.current.pause() : this.buttonRef.current.start();
     this.setState({ isPlaying: !isPlaying });
-    // this.buttonRef.current.click();
+    console.log(this.buttonRef);
   };
 
   reset = (opts) => {
@@ -32,14 +46,7 @@ class StaticSpeedReader extends React.Component {
       isPlaying: false,
       resetTs: new Date().getTime(),
     });
-  };
-
-  increaseChunk = () => {
-    this.alterChunk(1);
-  };
-
-  decreaseChunk = () => {
-    this.alterChunk(-1);
+    this.buttonRef.current.setState({ activeWord: -1 });
   };
 
   setInputText = (e) => {
@@ -52,63 +59,6 @@ class StaticSpeedReader extends React.Component {
     const v = e.target ? e.target.value : e;
     if (isNaN(v) || v < 0) return;
     this.setState({ speed: parseInt(v || 0) });
-  };
-
-  alterChunk = (x) => {
-    document.activeElement.blur();
-    const chunk = this.clamp(this.state.chunk + x, 1, 3);
-    this.setState({ chunk }, this.reset);
-  };
-
-  clamp = (x, min, max) => {
-    if (x < min) return min;
-    if (x > max) return max;
-    return x;
-  };
-
-  progress = (x) => {
-    this.setState({ progress: x });
-  };
-
-  dragTarget = undefined;
-
-  setProgressPercent = (e) => {
-    if (this.dragTarget) {
-      window.getSelection().removeAllRanges();
-      const rect = this.dragTarget.getBoundingClientRect();
-      const percent = ((e.clientX - rect.left) * 100) / rect.width;
-      const setProgress = {
-        percent,
-        timestamp: new Date().getTime(),
-      };
-      this.setState({ setProgress });
-    }
-  };
-
-  setProgressSkipFor = (x) => {
-    const setProgress = {
-      skipFor: x,
-      timestamp: new Date().getTime(),
-    };
-    this.setState({ setProgress });
-  };
-
-  progressBar = (progress) => {
-    const chunks = 25;
-    const ratio = progress ? progress.at / progress.of : 0;
-    const integerPart = Math.floor(ratio * chunks);
-    let progressBar = new Array(integerPart + 1).join('#');
-    progressBar += new Array(chunks - integerPart + 1).join('_');
-    return {
-      bar: `[${progressBar}]`,
-      percent: `${(ratio * 100).toFixed(0)}%`,
-    };
-  };
-
-  getProgressPercent = (progress) => {
-    const ratio = progress ? progress.at / progress.of : 0;
-    const donePercent = (ratio * 100).toFixed(0);
-    return donePercent;
   };
 
   componentDidMount = () => {
@@ -131,17 +81,29 @@ class StaticSpeedReader extends React.Component {
 
     if (e.keyCode === 32)
       //space
-      this.setState({ isPlaying: !this.state.isPlaying });
+      this.toggleIsPlaying(e);
 
     if (e.keyCode === 37) {
       //left
+
       if (e.ctrlKey) this.reset();
-      else this.setProgressSkipFor(-skipFor);
+      else {
+        this.setProgressSkipFor(-skipFor);
+        this.buttonRef.current.setState((prevState) => ({
+          activeWord:
+            prevState.activeWord - skipFor > -1
+              ? prevState.activeWord - skipFor
+              : -1,
+        }));
+      }
     }
-    if (e.keyCode === 39)
+    if (e.keyCode === 39) {
       //right
       this.setProgressSkipFor(skipFor);
-
+      this.buttonRef.current.setState((prevState) => ({
+        activeWord: prevState.activeWord + skipFor,
+      }));
+    }
     if (e.keyCode === 38)
       //up
       this.setSpeed(this.state.speed + chgSpeed);
@@ -149,15 +111,10 @@ class StaticSpeedReader extends React.Component {
     if (e.keyCode === 40)
       //down
       this.setSpeed(this.state.speed - chgSpeed);
-  };
 
-  removeDragTarget = () => {
-    this.dragTarget = undefined;
-  };
-
-  setDragTarget = (e) => {
-    this.dragTarget = e.target;
-    this.setProgressPercent(e);
+    if (e.keyCode === 38 || e.keyCode === 40 || e.keyCode === 32) {
+      e.preventDefault();
+    }
   };
 
   renderReader = (props, state) => {
@@ -207,7 +164,6 @@ class StaticSpeedReader extends React.Component {
       fontSize: '120%',
     };
 
-    const progressBar = this.progressBar(this.state.progress);
     return (
       <div style={{ textAlign: 'center' }}>
         <div style={outerStyle} className="center-text">
@@ -217,27 +173,29 @@ class StaticSpeedReader extends React.Component {
                 className="d-flex flex-column 
 align-items-center flex-wrap"
               >
-                <SpeedReaderComp
+                <SpeedReader2
                   ref={this.buttonRef}
                   article={this.state.inputText}
-                  unreadStyle={{ color: 'green' }}
-                  activeStyle={{ color: 'orange' }}
-                  readStyle={{ color: 'green' }}
+                  unreadStyle={{ color: 'yellow' }}
+                  activeStyle={{ color: 'red' }}
+                  readStyle={{ color: 'aqua' }}
                   wpm={this.state.speed}
+                  style={{ pointerEvents: 'none' }}
+                  onPercentageRead={this.handlePercentageRead}
                 />
               </div>
-              ;
             </div>
           </div>
         </div>
 
-        <div>
+        {/* <div>
           <span
             style={{ cursor: 'col-resize', fontFamily: 'monospace' }}
             onMouseDown={this.setDragTarget}
           >
             {progressBar.bar}
           </span>
+      
           <span
             style={{
               position: 'absolute',
@@ -246,7 +204,20 @@ align-items-center flex-wrap"
               textAlign: 'right',
             }}
           >
-            {progressBar.percent}
+            {this.state.percentageRead || 0}
+          </span>
+        </div> */}
+        <div>
+          <input
+            type="range"
+            min="0"
+            max="100"
+            value={this.state.percentageRead}
+          />
+          &nbsp;
+          <span>
+            {this.state.percentageRead}
+            {`%`}
           </span>
         </div>
 
@@ -256,34 +227,13 @@ align-items-center flex-wrap"
             variant="contained"
             onClick={this.toggleIsPlaying}
           >
-            {!this.state.isPlaying ||
-            this.getProgressPercent(this.state.progress) == 100
+            {!this.state.isPlaying || this.state.percentageRead == 100
               ? 'Play'
               : 'Pause'}
           </Button>
           <div></div>
           <Button onClick={this.reset} variant="contained" color="secondary">
             Reset
-          </Button>
-        </div>
-
-        <div>
-          <Button
-            className=" m-2"
-            variant="contained"
-            color="error"
-            onClick={this.decreaseChunk}
-          >
-            -
-          </Button>
-          words per flash: {this.state.chunk}
-          <Button
-            className=" m-2"
-            variant="contained"
-            color="success"
-            onClick={this.increaseChunk}
-          >
-            +
           </Button>
         </div>
 

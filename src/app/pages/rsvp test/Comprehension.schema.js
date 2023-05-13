@@ -5,6 +5,7 @@ const COMPREHENSION_SCHEMA = yup.object().shape({
   comprehension: yup.string(),
   questions: yup.array(),
   level: yup.array(),
+  wordCount: yup.number(),
 });
 
 export default COMPREHENSION_SCHEMA;
