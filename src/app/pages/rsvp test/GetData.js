@@ -34,7 +34,7 @@ function GetData(props) {
   };
 
   const comprehension = useSelector(
-    (state) => state.user?.userInfo?.selectedComprehension?.comprehension
+    (state) => state.user?.selectedComprehension?.comprehension
   );
 
   const isStaticreader = useSelector((state) => state.user?.isStaticReader);
@@ -62,7 +62,9 @@ function GetData(props) {
     <div className="d-flex w-100 justify-content-center">
       <div className="subHeader p-2 m-2 container d-flex justify-content-center flex-column">
         {isLoading ? (
-          <CircularProgress />
+          <div className="d-flex w-100 justify-content-center pt-5 pb-5">
+            <CircularProgress size="4rem" />
+          </div>
         ) : (
           <>
             <h4 className="center-text m-2 p-2">

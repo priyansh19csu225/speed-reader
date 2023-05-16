@@ -1,6 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
-import { persistStore, persistReducer } from 'redux-persist';
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import userReducer from './userSlice';
 import globalSnackbarReducer from './snackBarSlice';
@@ -8,6 +17,7 @@ import globalSnackbarReducer from './snackBarSlice';
 const persistConfig = {
   key: 'root',
   storage,
+  blacklist: ['globalSnackbar'],
 };
 
 const rootReducer = combineReducers({
@@ -17,12 +27,30 @@ const rootReducer = combineReducers({
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-export default configureStore({
-  reducer: persistedReducer,
-});
-
 const store = configureStore({
   reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [
+          FLUSH,
+          REHYDRATE,
+          PAUSE,
+          PERSIST,
+          PURGE,
+          REGISTER,
+          'user/getComprehensionsStart',
+          'user/getComprehensionsFailure',
+          'user/setComprehension',
+          'user/setStaticReader',
+          'user/showSnackBar',
+          'user/getComprehensionsSuccess',
+          'user/setUserRoleAndEmail',
+          'globalSnackbar/showSnackBar',
+          'user/setWordsPerMinute',
+        ],
+      },
+    }),
 });
 const persistor = persistStore(store);
 

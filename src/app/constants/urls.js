@@ -1,9 +1,9 @@
 const URL = {
   HOME: '/',
   ADD_COMPREHENSION: '/add',
-  COMPREHENSION: '/comprehension',
+  DAILY_EXERCISE_COMPREHENSION: '/daily-exercise-comprehension',
   READ: '/read',
-  READ_COMPREHENSION: '/readComprehension',
+  READ_COMPREHENSION: '/read-comprehension',
   ALL_COMPREHENSIONS: '/comprehensions',
   QUESTIONS: '/questions',
 };

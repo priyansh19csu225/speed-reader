@@ -1,6 +1,7 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
 // import noop from 'lodash/noop';
+import { useSelector } from 'react-redux';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
 import Error from '../error/Error';
@@ -16,6 +17,8 @@ import Questions from '../rsvp test/Questions';
 function RoutesComponent() {
   // function RoutesComponent(props) {
   // const { setShowFooter } = props;
+  const isAdmin = useSelector((state) => state?.user?.userInfo.isAdmin);
+  const user = useSelector((state) => state?.user?.userInfo.email);
 
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
@@ -24,18 +27,28 @@ function RoutesComponent() {
         <Routes>
           <Route path={URL.HOME} element={<LandingPage />} />
           <Route path={URL.READ} element={<ReadMaster customUserText />} />
-          <Route path={URL.READ_COMPREHENSION} element={<ReadMaster />} />
-          <Route path={URL.ADD_COMPREHENSION} element={<AddComprehension />} />
-          <Route
-            path={URL.COMPREHENSION}
-            element={<ReadMaster randomComprehension />}
-          />
-          {/* <Route path={URL.DAILY_EXERCISE_COMPREHENSION} element={<ReadMaster />} /> */}
-          <Route
-            path={URL.ALL_COMPREHENSIONS}
-            element={<AllComprehensions />}
-          />
-          <Route path={URL.QUESTIONS} element={<Questions />} />
+          {user && (
+            <>
+              <Route path={URL.READ_COMPREHENSION} element={<ReadMaster />} />
+              {isAdmin && (
+                <Route
+                  path={URL.ADD_COMPREHENSION}
+                  element={<AddComprehension />}
+                />
+              )}
+              <Route
+                path={URL.DAILY_EXERCISE_COMPREHENSION}
+                element={<ReadMaster randomComprehension />}
+              />
+              {/* <Route path={URL.DAILY_EXERCISE_COMPREHENSION} element={<ReadMaster />} /> */}
+              <Route
+                path={URL.ALL_COMPREHENSIONS}
+                element={<AllComprehensions />}
+              />
+              <Route path={URL.QUESTIONS} element={<Questions />} />
+            </>
+          )}
+
           <Route path="*" element={<Error />} />
         </Routes>
       </BrowserRouter>

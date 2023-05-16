@@ -9,10 +9,9 @@ class SpeedReaderViewer extends React.Component {
     inputText: this.props.textArea,
     isPlaying: false,
     resetTs: undefined,
-    speed: 250,
+    speed: this.props.wpm,
     chunk: 1,
     setProgress: { timestamp: undefined },
-    readOnce: false,
   });
 
   state = this.getDefaultState();
@@ -52,6 +51,7 @@ class SpeedReaderViewer extends React.Component {
     const v = e.target ? e.target.value : e;
     if (isNaN(v) || v < 0) return;
     this.setState({ speed: parseInt(v || 0) });
+    this.props.setWpm(parseInt(v || 0));
   };
 
   alterChunk = (x) => {
@@ -221,7 +221,7 @@ class SpeedReaderViewer extends React.Component {
                 speed={this.state.speed || this.getDefaultState().speed}
                 isPlaying={this.state.isPlaying}
                 setProgress={this.state.setProgress}
-                hasEndedCallback={() => this.setState({ readOnce: true })}
+                hasEndedCallback={() => this.props.setReadOnce(true)}
                 progressCallback={this.progress}
                 chunk={this.state.chunk}
                 reset={this.state.resetTs}
@@ -290,11 +290,12 @@ class SpeedReaderViewer extends React.Component {
               placeholder={this.getDefaultState().speed}
               onChange={this.setSpeed}
               className=" m-2"
+              id="getWPM"
             />
             WPM
           </div>
           <div>
-            {this.props.isComprehension && this.state.readOnce && (
+            {this.props.isComprehension && this.props.readOnce && (
               <Button
                 variant="contained"
                 color="warning"

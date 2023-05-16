@@ -41,11 +41,11 @@ function ComprehensionComponent() {
         );
         reset({});
       })
-      .catch((error) => {
+      .catch(() => {
         dispatch(
           showSnackBar({
             setopen: true,
-            message: error.msg || 'Error',
+            message: 'Some error occured, Please try again later!',
             severity: 'error',
           })
         );

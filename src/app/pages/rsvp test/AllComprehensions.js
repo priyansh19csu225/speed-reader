@@ -17,9 +17,7 @@ function AllComprehensions() {
     getComprehensions(dispatch).finally(setIsLoading(false));
   }, EMPTY_ARRAY);
 
-  const comprehensions = useSelector(
-    (state) => state?.user?.userInfo?.comprehensions
-  );
+  const comprehensions = useSelector((state) => state?.user?.comprehensions);
 
   const navigate = useNavigate();
 
@@ -38,7 +36,9 @@ function AllComprehensions() {
     <div>
       <h4 className="text-center">Choose a comprehension</h4>
       {isLoading ? (
-        <CircularProgress />
+        <div className="d-flex justify-content-between align-items-center">
+          <CircularProgress />
+        </div>
       ) : (
         <Grid
           container
@@ -47,17 +47,45 @@ function AllComprehensions() {
           alignItems="center"
         >
           {comprehensions?.map((row, index) => (
-            <Grid item xs={12} md={5} key={index} className="m-2 p-2">
+            <Grid item xs={12} md={4} key={index} className="m-2 p-2">
               {/* Skill */}
-              <div className="col-md-12 profile_form_box">
+              <div className="d-flex flex-column justify-content-between col-md-12 profile_form_box">
                 <label htmlFor="name" className="form-label col-12">
                   <div className="d-flex justify-content-between">
                     <h5>{row.title}</h5>
-
-                    <h6 className="body-2">{sampleJSON.object[row.level]}</h6>
                   </div>
                 </label>
-                <div className="d-flex justify-content-end">
+                <div className="d-flex justify-content-between align-items-center">
+                  <span>
+                    <strong>
+                      Difficulty:{' '}
+                      <span key={index} className="body-2">
+                        {row?.level.map((level, ind) => (
+                          <div
+                            key={ind}
+                            style={{
+                              color:
+                                level === 20
+                                  ? 'red'
+                                  : level === 10
+                                  ? 'orange'
+                                  : 'green',
+                              marginRight: '3px',
+                            }}
+                          >
+                            {sampleJSON.object[level]}
+                          </div>
+                        ))}
+                      </span>
+                    </strong>
+                  </span>
+                  <span>
+                    <strong>
+                      Total Words:{' '}
+                      <div className="body-2 center-text">{row?.wordCount}</div>
+                    </strong>
+                  </span>
+
                   <Button onClick={() => handleClick(row)} variant="contained">
                     Start
                   </Button>

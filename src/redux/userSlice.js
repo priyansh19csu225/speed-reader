@@ -5,12 +5,15 @@ export const userSlice = createSlice({
   name: 'user',
   initialState: {
     userInfo: {
-      comprehensions: [],
-      selectedComprehension: {},
+      isAdmin: false,
+      email: null,
     },
     isStaticReader: false,
     pending: null,
     error: false,
+    comprehensions: [],
+    selectedComprehension: {},
+    wpm: 250,
   },
   reducers: {
     getComprehensionsStart: (state) => {
@@ -18,17 +21,24 @@ export const userSlice = createSlice({
     },
     getComprehensionsSuccess: (state, action) => {
       state.pending = false;
-      state.userInfo.comprehensions = action.payload.data;
+      state.comprehensions = action.payload.data;
     },
     getComprehensionsFailure: (state) => {
       state.pending = false;
       state.error = true;
     },
+    setWordsPerMinute: (state, action) => {
+      state.wpm = action.payload;
+    },
     setComprehension: (state, action) => {
-      state.userInfo.selectedComprehension = action.payload;
+      state.selectedComprehension = action.payload;
     },
     setStaticReader: (state) => {
       state.isStaticReader = !state.isStaticReader;
+    },
+    setUserRoleAndEmail: (state, action) => {
+      state.userInfo.isAdmin = action.payload.isAdmin;
+      state.userInfo.email = action.payload.email;
     },
   },
 });
@@ -39,6 +49,8 @@ export const {
   getComprehensionsFailure,
   setComprehension,
   setStaticReader,
+  setUserRoleAndEmail,
+  setWordsPerMinute,
 } = userSlice.actions;
 
 export default userSlice.reducer;

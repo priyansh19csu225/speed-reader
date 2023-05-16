@@ -9,10 +9,9 @@ class StaticSpeedReader extends React.Component {
     inputText: this.props.textArea,
     isPlaying: false,
     resetTs: undefined,
-    speed: 250,
+    speed: this.props.wpm,
     chunk: 1,
     setProgress: { timestamp: undefined },
-    readOnce: false,
     percentageRead: 0,
   });
 
@@ -24,7 +23,7 @@ class StaticSpeedReader extends React.Component {
 
   handlePercentageRead(percentage) {
     if (percentage == 100) {
-      this.setState({ readOnce: true });
+      this.props.setReadOnce(true);
     }
     this.setState({ percentageRead: percentage });
   }
@@ -59,6 +58,7 @@ class StaticSpeedReader extends React.Component {
     const v = e.target ? e.target.value : e;
     if (isNaN(v) || v < 0) return;
     this.setState({ speed: parseInt(v || 0) });
+    this.props.setWpm(parseInt(v || 0));
   };
 
   componentDidMount = () => {
@@ -249,7 +249,7 @@ align-items-center flex-wrap"
             WPM
           </div>
           <div>
-            {this.props.isComprehension && this.state.readOnce && (
+            {this.props.isComprehension && this.props.readOnce && (
               <Button
                 variant="contained"
                 color="warning"

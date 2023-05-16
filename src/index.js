@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
+import { Auth0Provider } from '@auth0/auth0-react';
 import { store, persistor } from './redux/store';
 import reportWebVitals from './reportWebVitals';
 import App from './app';
@@ -36,7 +37,15 @@ ReactDOM.render(
     <ThemeProvider theme={theme}>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <App />
+          <Auth0Provider
+            domain="dev-51qh0h62wointmnd.uk.auth0.com"
+            clientId="44DWrjIlvKDegDw9ztLTuxg2sMKjTIBG"
+            authorizationParams={{
+              redirect_uri: window.location.origin,
+            }}
+          >
+            <App />
+          </Auth0Provider>
         </PersistGate>
       </Provider>
     </ThemeProvider>
