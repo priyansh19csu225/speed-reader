@@ -87,6 +87,7 @@ function GetData(props) {
                   control={control}
                   toolbarOptions={emptyEditor ? toolbarOptions : none}
                   editorHeight="520px"
+                  emptyEditor={emptyEditor}
                   // placeholder={getValues('comprehension')}
                   readOnly={!emptyEditor}
                 />

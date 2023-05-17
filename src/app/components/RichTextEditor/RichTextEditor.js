@@ -18,6 +18,7 @@ function RichTextEditor(props) {
     placeholder,
     editorHeight,
     readOnly,
+    emptyEditor,
   } = props;
   const valueInitialized = useRef(true);
   let defaultValueProps;
@@ -40,6 +41,12 @@ function RichTextEditor(props) {
       setEditorState(editorStateValue);
       valueInitialized.current = false;
     }
+
+    if (!emptyEditor) {
+      document
+        .getElementsByClassName('public-DraftEditor-content')[0]
+        .classList.add('blur-Text', 'noselect');
+    }
   }, [defaultValueProps]);
 
   const onEditorStateChange = (valueonEditorChange) => {
@@ -60,14 +67,15 @@ function RichTextEditor(props) {
       value={editorState}
       editorState={editorState}
       placeholder={placeholder}
-      wrapperClassName={cx('wrapper-class')}
-      toolbarClassName={cx('___editor__toolbar')}
+      wrapperClassName={emptyEditor && cx('wrapper-class')}
+      toolbarClassName={emptyEditor && cx('___editor__toolbar')}
       editorClassName={cx(
         '___editor__content',
         'border px-2 rounded',
         'textEditorHeight',
         'resize-text-editor'
       )}
+      toolbarHidden={!emptyEditor}
       onEditorStateChange={onEditorStateChange}
       toolbar={toolbarOptions}
       readOnly={readOnly}

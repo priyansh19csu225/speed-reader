@@ -5,8 +5,15 @@ import RichTextEditor from './RichTextEditor';
 import { EMPTY_OBJECT } from '../../constants';
 
 function EditorController(props) {
-  const { name, control, toolbarOptions, placeholder, editorHeight, readOnly } =
-    props;
+  const {
+    name,
+    control,
+    toolbarOptions,
+    placeholder,
+    editorHeight,
+    readOnly,
+    emptyEditor,
+  } = props;
 
   return (
     <Controller
@@ -17,6 +24,7 @@ function EditorController(props) {
           <RichTextEditor
             onChange={onChange}
             // placeholder={placeholder}
+            emptyEditor={emptyEditor}
             placeholder={placeholder}
             value={value}
             toolbarOptions={toolbarOptions}
