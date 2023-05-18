@@ -75,6 +75,7 @@ function ComprehensionComponent() {
         Comprehension Passage:
         <div id={divRef}>
           <EditorController
+            emptyEditor
             name="comprehension"
             control={control}
             toolbarOptions={toolbarOptions}
