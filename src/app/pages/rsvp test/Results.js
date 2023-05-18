@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import API_URL from '../../constants/apiUrls';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getRequest } from '../../services';
 import { showSnackBar } from '../../../redux/snackBarSlice';
-import { CardContent, Grid, Typography } from '@mui/material';
-import { Card } from 'react-bootstrap';
-import { Box } from '@mui/system';
+import { CardContent, Grid, Typography, Box, Card } from '@mui/material';
 import SpeedReadGraph from './SpeedReadGraph';
 
 function Results() {
