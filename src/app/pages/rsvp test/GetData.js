@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
 import PropTypes from 'prop-types';
 import CircularProgress from '@mui/material/CircularProgress';
 import { Button, Typography } from '@mui/material';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import EditorController from '../../components/RichTextEditor/EditorController';
 import API_URL from '../../constants/apiUrls';
 import { getRequest } from '../../services';
 import { none, toolbarOptions } from '../../constants/toolbar.constants';
 import COMPREHENSION_SCHEMA from './Comprehension.schema';
 import URL from '../../constants/urls';
+import { setComprehensionRedux } from '../../../redux/apiCalls';
 
 function GetData(props) {
   const { emptyEditor, randomComprehension } = props;
@@ -37,6 +39,8 @@ function GetData(props) {
     (state) => state.user?.selectedComprehension?.comprehension
   );
 
+  const { user } = useAuth0();
+  const dispatch = useDispatch();
   const isStaticreader = useSelector((state) => state.user?.isStaticReader);
 
   useEffect(() => {
@@ -51,9 +55,10 @@ function GetData(props) {
       return;
     }
     setIsLoading(true);
-    getRequest(`${API_URL.GET_COMPREHENSION}?id=6408c08bb9a5a78c243a5f64`)
+    getRequest(`${API_URL.GET_RANDOM_COMPREHENSION}?email=${user?.email}`)
       .then((res) => {
         setValue('comprehension', res.data.comprehension);
+        setComprehensionRedux(dispatch, res.data);
       })
       .finally(() => setIsLoading(false));
   }, [emptyEditor, randomComprehension]);

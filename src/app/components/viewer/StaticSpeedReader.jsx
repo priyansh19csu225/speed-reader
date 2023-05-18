@@ -117,6 +117,20 @@ class StaticSpeedReader extends React.Component {
     }
   };
 
+  getWordByPercentage(percentage) {
+    const words = paragraph.split(' ');
+    const totalWordCount = words.length;
+    const wordIndex = Math.floor((percentage / 100) * totalWordCount);
+
+    if (wordIndex >= 0 && wordIndex < words.length) {
+      this.buttonRef.current.setState({
+        activeWord: wordIndex,
+      });
+    } else {
+      return null;
+    }
+  }
+
   renderReader = (props, state) => {
     if (!state.currentText) return <span>&nbsp;</span>;
 
