@@ -28,7 +28,7 @@ function RichTextEditor(props) {
   if (initialFieldValue) {
     defaultValueProps = initialFieldValue;
   } else {
-    defaultValueProps = '';
+    defaultValueProps = emptyEditor ? ' ' : '';
   }
   const blocksFromHtml = htmlToDraft(defaultValueProps);
   const contentState = ContentState.createFromBlockArray(
@@ -50,7 +50,6 @@ function RichTextEditor(props) {
   }, [defaultValueProps]);
 
   const onEditorStateChange = (valueonEditorChange) => {
-    setEditorState(valueonEditorChange);
     let textEditorValue = draftToHtml(
       convertToRaw(editorState.getCurrentContent())
     ).trim();
@@ -58,6 +57,7 @@ function RichTextEditor(props) {
     textEditorValue = textEditorValue.replace(/<p>/g, '<div>');
     textEditorValue = textEditorValue.replace(/<\/p>/g, '</div>');
     textEditorValue = textEditorValue.replace(/<div><\/div>/g, '<p></p>');
+    setEditorState(valueonEditorChange);
     return onChange(textEditorValue);
   };
 
@@ -90,6 +90,7 @@ RichTextEditor.propTypes = {
   placeholder: PropTypes.string,
   editorHeight: PropTypes.string,
   readOnly: PropTypes.bool,
+  emptyEditor: PropTypes.bool,
 };
 
 RichTextEditor.defaultProps = {
@@ -99,5 +100,6 @@ RichTextEditor.defaultProps = {
   toolbarOptions: EMPTY_OBJECT,
   editorHeight: undefined,
   readOnly: false,
+  emptyEditor: false,
 };
 export default RichTextEditor;

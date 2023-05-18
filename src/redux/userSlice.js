@@ -7,6 +7,7 @@ export const userSlice = createSlice({
     userInfo: {
       isAdmin: false,
       email: null,
+      account_level: 1,
     },
     isStaticReader: false,
     pending: null,

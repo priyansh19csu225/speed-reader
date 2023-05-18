@@ -4,6 +4,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
+import { useAuth0 } from '@auth0/auth0-react';
 import Error from '../error/Error';
 import ErrorFallback from '../error/ErrorFallback';
 import LandingPage from '../../components/landingPage/LandingPage';
@@ -13,23 +14,25 @@ import ReadMaster from '../../components/viewer/ReadMaster';
 import Header from '../../components/headerComponent/Header';
 import AllComprehensions from '../rsvp test/AllComprehensions';
 import Questions from '../rsvp test/Questions';
+import Footer from '../../components/footer/Footer';
+import Results from '../rsvp test/Results';
 
 function RoutesComponent() {
   // function RoutesComponent(props) {
   // const { setShowFooter } = props;
   const isAdmin = useSelector((state) => state?.user?.userInfo.isAdmin);
-  const user = useSelector((state) => state?.user?.userInfo.email);
+  const { user } = useAuth0();
 
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
-      <BrowserRouter className="mt-3">
+      <BrowserRouter className="mt-3 ">
         <Header />
         <Routes>
           <Route path={URL.HOME} element={<LandingPage />} />
           <Route path={URL.READ} element={<ReadMaster customUserText />} />
+          <Route path={URL.READ_COMPREHENSION} element={<ReadMaster />} />
           {user && (
             <>
-              <Route path={URL.READ_COMPREHENSION} element={<ReadMaster />} />
               {isAdmin && (
                 <Route
                   path={URL.ADD_COMPREHENSION}
@@ -46,11 +49,13 @@ function RoutesComponent() {
                 element={<AllComprehensions />}
               />
               <Route path={URL.QUESTIONS} element={<Questions />} />
+              <Route path={URL.SEE_RESULTS} element={<Results />} />
             </>
           )}
 
           <Route path="*" element={<Error />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </ErrorBoundary>
   );

@@ -8,7 +8,7 @@ import { showSnackBar } from '../../../redux/snackBarSlice';
 import { toolbarOptions } from '../../constants/toolbar.constants';
 import AddMCQ from './AddMCQ';
 import { postRequest } from '../../services';
-import { API_URL } from '../../constants/apiUrls';
+import API_URL from '../../constants/apiUrls';
 
 function ComprehensionComponent() {
   const { control, register, getValues, handleSubmit, setValue, reset } =

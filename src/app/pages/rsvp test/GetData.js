@@ -7,7 +7,7 @@ import { Button, Typography } from '@mui/material';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useSelector } from 'react-redux';
 import EditorController from '../../components/RichTextEditor/EditorController';
-import { API_URL } from '../../constants/apiUrls';
+import API_URL from '../../constants/apiUrls';
 import { getRequest } from '../../services';
 import { none, toolbarOptions } from '../../constants/toolbar.constants';
 import COMPREHENSION_SCHEMA from './Comprehension.schema';

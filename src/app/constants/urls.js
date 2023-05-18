@@ -6,6 +6,7 @@ const URL = {
   READ_COMPREHENSION: '/read-comprehension',
   ALL_COMPREHENSIONS: '/comprehensions',
   QUESTIONS: '/questions',
+  SEE_RESULTS: '/see-results',
 };
 export default URL;
 

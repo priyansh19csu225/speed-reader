@@ -6,7 +6,6 @@ import RoutesComponent from './Routes';
 
 import { showSnackBar } from '../../../redux/snackBarSlice';
 import ErrorSnackBar from '../../components/snackBar/ErrorSnackBar';
-import Footer from '../../components/footer/Footer';
 
 function App() {
   const snackBarShow = useSelector((state) => state.globalSnackbar);
@@ -27,8 +26,7 @@ function App() {
 
   return (
     <>
-      <RoutesComponent setShowFooter />
-      <Footer />
+      <RoutesComponent />
       <ErrorSnackBar opensnackbar={snackBarShow} handleClose={handleClose} />
     </>
   );

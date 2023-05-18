@@ -83,6 +83,7 @@ function Header() {
           />
         </Link>
         <div className="column">
+          <div>Badge</div>
           {user && (
             <Typography component="span" className="me-3" color="blue">
               {user?.email}
@@ -120,7 +121,7 @@ function Header() {
                     [ACTIVE_KEBAB_LINK]: activeUrl === URL.HOME,
                   })}
                 >
-                  Homepage
+                  Home Page
                 </Link>
               </MenuItem>
 
@@ -156,6 +157,16 @@ function Header() {
                       })}
                     >
                       All Comprehensions
+                    </Link>
+                  </MenuItem>
+                  <MenuItem onClick={onSelectNavOption} className={MENU_ITEM}>
+                    <Link
+                      to={URL.SEE_RESULTS}
+                      className={classNames(KEBAB_LINK, {
+                        [ACTIVE_KEBAB_LINK]: activeUrl === URL.SEE_RESULTS,
+                      })}
+                    >
+                      See Past Results
                     </Link>
                   </MenuItem>
                 </>

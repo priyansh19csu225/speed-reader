@@ -1,15 +1,9 @@
-// const UPLOAD_URL = {
-//   CANDIDATE_RESUME_UPLOAD_URL: '/file/candidate/resume/upload',
-
-// };
-
-export const API_URL = {
-  // LOGIN: '/api/v1/login',
+const API_URL = {
   INSERT: '/insert',
   GET_COMPREHENSION: '/comprehension',
   COMPREHENSIONS: '/comprehensions',
+  SAVE_RESULT: '/save',
+  GET_USER_RESULT: '/search',
 };
 
-// export const IMAGE_URL = {
-//   ALIGNMYCAREER: '/images/alignmycareer.svg',
-// };
+export default API_URL;
