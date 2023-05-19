@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 import PropTypes from 'prop-types';
 import CircularProgress from '@mui/material/CircularProgress';
-import { Button, Typography } from '@mui/material';
+import { Button, Dialog, Typography, DialogActions } from '@mui/material';
+import { Warning } from '@mui/icons-material';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch, useSelector } from 'react-redux';
 import EditorController from '../../components/RichTextEditor/EditorController';
@@ -22,6 +23,8 @@ function GetData(props) {
     mode: 'onChange',
   });
   const { setValue, control } = methods;
+  const [open, setOpen] = useState(false);
+  const [responseMsg, setResponseMsg] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const divRef = 'getData';
   const navigate = useNavigate();
@@ -57,6 +60,11 @@ function GetData(props) {
     setIsLoading(true);
     getRequest(`${API_URL.GET_RANDOM_COMPREHENSION}?email=${user?.email}`)
       .then((res) => {
+        if (res.data.showDialog) {
+          setOpen(true);
+          setResponseMsg(res.data.msg);
+          return;
+        }
         setValue('comprehension', res.data.comprehension);
         setComprehensionRedux(dispatch, res.data);
       })
@@ -110,6 +118,34 @@ function GetData(props) {
           </>
         )}
       </div>
+      <Dialog fullWidth open={open}>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            paddingTop: '20px',
+          }}
+        >
+          <div>
+            <Warning style={{ color: 'orange', fontSize: '50px' }} />
+          </div>
+          <div style={{ margin: '10px', padding: '10px' }}>
+            <h5>{responseMsg}</h5>
+          </div>
+        </div>
+        <DialogActions>
+          <Button
+            onClick={() => {
+              setOpen(false);
+              navigate(URL.HOME);
+            }}
+          >
+            OK
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }
