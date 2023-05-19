@@ -70,7 +70,8 @@
     "SpeedReader.jsx",
     "Results.js",
     "Header.js",
-    "SpeedReader2.js"
+    "SpeedReader2.js",
+    "SpeedReadGraph.js"
   ],
   "browserslist": {
     "production": [

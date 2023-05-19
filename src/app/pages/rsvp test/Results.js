@@ -82,6 +82,8 @@ function Results() {
         </div>
       ) : (
         <>
+          <h4>Summary</h4>
+          <SpeedReadGraph results={results} />
           <h4>Latest Result</h4>
           {firstResult && (
             <div style={{ paddingBottom: '20px', margin: '20px 0' }}>
@@ -208,7 +210,6 @@ function Results() {
               </Grid>
             ))}
           </Grid>
-          <SpeedReadGraph results={results} />
         </>
       )}
     </div>
