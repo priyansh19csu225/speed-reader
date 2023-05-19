@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { styled } from '@mui/system';
+import { useNavigate } from 'react-router';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -7,7 +8,6 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import URL from '../../constants/urls';
-import { useNavigate } from 'react-router';
 
 const Root = styled('div')({
   // margin: '30px auto',
@@ -67,11 +67,11 @@ const LandingPage = () => {
 
   return (
     <Root className="mb-5 pb-5">
-      <div class="row">
-        <div class="mt-3 d-flex justify-content-center headline-2-bold color-1F2830">
+      <div className="row">
+        <div className="mt-3 d-flex justify-content-center headline-2-bold color-1F2830">
           <b>Read Faster. Learn Smarter.</b>
         </div>
-        <span class="d-flex justify-content-center headline-6 text-center mb-5">
+        <span className="d-flex justify-content-center headline-6 text-center mb-5">
           <b>
             Unlock the Power of Speed Reading and Supercharge Your Learning!{' '}
           </b>
