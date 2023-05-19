@@ -12,7 +12,7 @@ axiosClient.interceptors.request.use(
   { synchronous: true }
 );
 
-axiosClient.defaults.baseURL = '/api';
+axiosClient.defaults.baseURL = 'https://speed-reader-backend.onrender.com/api';
 
 axiosClient.defaults.headers = {
   'Content-Type': 'application/json',

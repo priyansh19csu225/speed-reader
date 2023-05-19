@@ -4,7 +4,6 @@ module.exports = (app) => {
   app.use(
     createProxyMiddleware('/api', {
       target: 'https://speed-reader-backend.onrender.com',
-      secure: false,
     })
   );
 };
