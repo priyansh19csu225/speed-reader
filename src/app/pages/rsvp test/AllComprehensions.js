@@ -38,7 +38,7 @@ function AllComprehensions() {
     },
   };
   return (
-    <div className="mb-5">
+    <div className="mb-5 pb-5">
       <h4 className="text-center">Choose a comprehension</h4>
       {isLoading ? (
         <div className="d-flex justify-content-between align-items-center">
