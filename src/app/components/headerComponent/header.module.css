@@ -50,29 +50,32 @@
   flex-flow: wrap;
 }
 
-/* header.module.css */
-
-/* Styles for the badge container */
-.badgeContainer {
-  display: flex;
-  align-items: center;
-}
-
-/* Styles for the circular badge */
-.badge {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.diamondBadge {
   width: 30px;
   height: 30px;
-  border-radius: 50%;
-  background-color: #ff0000;
-  /* Replace with your desired background color */
-  color: #ffffff;
-  /* Replace with your desired text color */
+  background-color: yellow;
+  border: 2px solid red;
+  transform: rotate(45deg);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Styles for the badge number */
+.diamondBadge::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  width: 100%;
+  height: 100%;
+  background-color: yellow;
+  border: 2px solid red;
+  z-index: -1;
+}
+
 .badgeNumber {
-  font-size: 14px;
+  transform: rotate(-45deg);
+  color: black;
 }

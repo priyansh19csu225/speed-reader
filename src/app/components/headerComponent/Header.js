@@ -105,12 +105,9 @@ function Header() {
           />
         </Link>
         <div className="column d-flex align-items-center">
-          {/* {user && (
-            <div className="me-3">{accountLevel}</div>
-          )} */}
           {showBadge && (
             <div className={`me-3 ${styles.badgeContainer}`}>
-              <div className={styles.badge}>
+              <div className={styles.diamondBadge}>
                 <span className={styles.badgeNumber}>{accountLevel}</span>
               </div>
             </div>
