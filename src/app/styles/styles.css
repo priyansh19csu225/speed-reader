@@ -560,9 +560,11 @@ body {
   filter: blur(0.2rem);
  
 }
-
+.blur-Text-reader{
+  filter: blur(0.1rem);
+}
 .main {
-  min-height: 80vh;
+  min-height: 85vh;
   height: auto !important;
   height: 100%;
   margin: 0 auto -60px;

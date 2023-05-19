@@ -1,7 +1,8 @@
-import { Button, CircularProgress, Grid } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { Button, CircularProgress, Grid } from '@mui/material';
+import { Lock } from '@mui/icons-material';
 import {
   getComprehensions,
   setComprehensionRedux,
@@ -19,6 +20,10 @@ function AllComprehensions() {
 
   const comprehensions = useSelector((state) => state?.user?.comprehensions);
 
+  const accountLevel = useSelector(
+    (state) => state.user.userInfo.account_level
+  );
+
   const navigate = useNavigate();
 
   const handleClick = (comprehension) => {
@@ -33,7 +38,7 @@ function AllComprehensions() {
     },
   };
   return (
-    <div>
+    <div className="mb-5">
       <h4 className="text-center">Choose a comprehension</h4>
       {isLoading ? (
         <div className="d-flex justify-content-between align-items-center">
@@ -86,7 +91,12 @@ function AllComprehensions() {
                     </strong>
                   </span>
 
-                  <Button onClick={() => handleClick(row)} variant="contained">
+                  <Button
+                    onClick={() => handleClick(row)}
+                    startIcon={accountLevel < row?.level[0] && <Lock />}
+                    disabled={accountLevel < row?.level[0]}
+                    variant="contained"
+                  >
                     Start
                   </Button>
                 </div>

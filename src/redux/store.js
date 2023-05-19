@@ -48,6 +48,7 @@ const store = configureStore({
           'user/setUserRoleAndEmail',
           'globalSnackbar/showSnackBar',
           'user/setWordsPerMinute',
+          'user/setAccountLevel',
         ],
       },
     }),

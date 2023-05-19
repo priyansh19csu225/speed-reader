@@ -16,6 +16,7 @@ import URL from '../../constants/urls';
 import { postRequest } from '../../services';
 import API_URL from '../../constants/apiUrls';
 import { showSnackBar } from '../../../redux/snackBarSlice';
+import { setAccountLevel } from '../../../redux/userSlice';
 
 function Questions() {
   const questions = useSelector(
@@ -65,10 +66,10 @@ function Questions() {
 
     let correct_count = 0;
 
-    for (let i = 0; i < total_questions; i++) {
+    for (let i = 0; i < total_questions; i += 1) {
       const userAnswer = answers[i];
       const actualAnswer = questions[i].answers[0];
-      if (userAnswer === actualAnswer) correct_count++;
+      if (userAnswer === actualAnswer) correct_count += correct_count;
     }
 
     setCorrectAnswersCount(correct_count);
@@ -95,6 +96,7 @@ function Questions() {
             severity: 'success',
           })
         );
+        dispatch(setAccountLevel(res.data.doc.account_level));
       })
       .catch((error) => {
         dispatch(

@@ -190,9 +190,12 @@ align-items-center flex-wrap"
                 <SpeedReader2
                   ref={this.buttonRef}
                   article={this.state.inputText}
-                  unreadStyle={{ color: 'yellow' }}
+                  unreadStyle={{ color: 'lightgrey' }}
                   activeStyle={{ color: 'red' }}
+                  // readStyle={{ color: '#a1a1a1' }}
                   readStyle={{ color: 'aqua' }}
+                  // unreadClass="blur-Text-reader"
+                  // readClass="blur-Text-reader"
                   wpm={this.state.speed}
                   style={{ pointerEvents: 'none' }}
                   onPercentageRead={this.handlePercentageRead}

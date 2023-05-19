@@ -34,7 +34,7 @@ function ReadMaster(props) {
           <Tab label="Static Tool" id="tab-1" />
         </Tabs>
       </div>
-      <div className="container d-flex subHeader justify-content-center">
+      <div className="container d-flex subHeader justify-content-center mb-5 pb-5">
         {textArea ? (
           isStaticreader ? (
             <StaticSpeedReader

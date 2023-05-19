@@ -1,6 +1,6 @@
 import { Divider, IconButton, Menu, MenuItem, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, Link } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 import classNames from 'classnames';
@@ -8,10 +8,9 @@ import styles from './header.module.css';
 import ICON_LOGO from '../../img/logoread.png';
 import URL from '../../constants/urls';
 import getFirstPathName from './header.helper';
-import { setUserRoleAndEmail } from '../../../redux/userSlice';
+import { setAccountLevel, setUserRoleAndEmail } from '../../../redux/userSlice';
 import { showSnackBar } from '../../../redux/snackBarSlice';
 import { getRequest } from '../../services';
-import { Badge } from '@mui/material';
 import API_URL from '../../constants/apiUrls';
 
 const KEBAB_LINK = `color-1F2830 ${styles.navLink} px-3 py-1 w-100 subtitle-1`;
@@ -74,14 +73,16 @@ function Header() {
 
   const [showBadge, setShowBadge] = useState(false);
 
-  const [accountLevel, setAccountLevel] = useState(0);
+  const accountLevel = useSelector(
+    (state) => state.user.userInfo.account_level
+  );
 
   useEffect(() => {
     if (!user) return;
     getRequest(`${API_URL.GET_USER_RESULT}?email=${user.email}`)
       .then((res) => {
         if (res.data?.account_level) {
-          setAccountLevel(res?.data?.account_level);
+          dispatch(setAccountLevel(res?.data?.account_level));
           setShowBadge(true);
         }
       })
@@ -204,7 +205,18 @@ function Header() {
               )}
             </div>
           )}
-          <MenuItem>
+          <MenuItem
+            onClick={
+              isAuthenticated
+                ? () => {
+                    localStorage.removeItem('persist:root');
+                    return logout({
+                      logoutParams: { returnTo: window.location.origin },
+                    });
+                  }
+                : () => loginWithRedirect()
+            }
+          >
             <Divider
               sx={{
                 color: isAuthenticated ? 'red' : 'blue',
@@ -212,24 +224,9 @@ function Header() {
               }}
             >
               {isAuthenticated ? (
-                <Typography
-                  component="span"
-                  onClick={() => {
-                    localStorage.removeItem('persist:root');
-                    return logout({
-                      logoutParams: { returnTo: window.location.origin },
-                    });
-                  }}
-                >
-                  Log Out
-                </Typography>
+                <Typography component="span">Log Out</Typography>
               ) : (
-                <Typography
-                  component="span"
-                  onClick={() => loginWithRedirect()}
-                >
-                  Login
-                </Typography>
+                <Typography component="span">Login</Typography>
               )}
             </Divider>
           </MenuItem>

@@ -37,6 +37,9 @@ export const userSlice = createSlice({
     setStaticReader: (state) => {
       state.isStaticReader = !state.isStaticReader;
     },
+    setAccountLevel: (state, action) => {
+      state.userInfo.account_level = action.payload;
+    },
     setUserRoleAndEmail: (state, action) => {
       state.userInfo.isAdmin = action.payload.isAdmin;
       state.userInfo.email = action.payload.email;
@@ -52,6 +55,7 @@ export const {
   setStaticReader,
   setUserRoleAndEmail,
   setWordsPerMinute,
+  setAccountLevel,
 } = userSlice.actions;
 
 export default userSlice.reducer;

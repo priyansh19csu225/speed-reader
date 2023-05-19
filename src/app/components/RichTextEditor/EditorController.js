@@ -43,6 +43,7 @@ EditorController.propTypes = {
   toolbarOptions: PropTypes.object,
   editorHeight: PropTypes.string,
   readOnly: PropTypes.bool,
+  emptyEditor: PropTypes.bool,
 };
 EditorController.defaultProps = {
   name: undefined,
@@ -51,5 +52,6 @@ EditorController.defaultProps = {
   toolbarOptions: EMPTY_OBJECT,
   editorHeight: undefined,
   readOnly: false,
+  emptyEditor: false,
 };
 export default EditorController;

@@ -27,34 +27,36 @@ function RoutesComponent() {
     <ErrorBoundary FallbackComponent={ErrorFallback}>
       <BrowserRouter className="mt-3 ">
         <Header />
-        <Routes>
-          <Route path={URL.HOME} element={<LandingPage />} />
-          <Route path={URL.READ} element={<ReadMaster customUserText />} />
-          <Route path={URL.READ_COMPREHENSION} element={<ReadMaster />} />
-          {user && (
-            <>
-              {isAdmin && (
+        <div className="container main align-items-center d-flex flex-column justify-content-center">
+          <Routes>
+            <Route path={URL.HOME} element={<LandingPage />} />
+            <Route path={URL.READ} element={<ReadMaster customUserText />} />
+            <Route path={URL.READ_COMPREHENSION} element={<ReadMaster />} />
+            {user && (
+              <>
+                {isAdmin && (
+                  <Route
+                    path={URL.ADD_COMPREHENSION}
+                    element={<AddComprehension />}
+                  />
+                )}
                 <Route
-                  path={URL.ADD_COMPREHENSION}
-                  element={<AddComprehension />}
+                  path={URL.DAILY_EXERCISE_COMPREHENSION}
+                  element={<ReadMaster randomComprehension />}
                 />
-              )}
-              <Route
-                path={URL.DAILY_EXERCISE_COMPREHENSION}
-                element={<ReadMaster randomComprehension />}
-              />
-              {/* <Route path={URL.DAILY_EXERCISE_COMPREHENSION} element={<ReadMaster />} /> */}
-              <Route
-                path={URL.ALL_COMPREHENSIONS}
-                element={<AllComprehensions />}
-              />
-              <Route path={URL.QUESTIONS} element={<Questions />} />
-              <Route path={URL.SEE_RESULTS} element={<Results />} />
-            </>
-          )}
+                {/* <Route path={URL.DAILY_EXERCISE_COMPREHENSION} element={<ReadMaster />} /> */}
+                <Route
+                  path={URL.ALL_COMPREHENSIONS}
+                  element={<AllComprehensions />}
+                />
+                <Route path={URL.QUESTIONS} element={<Questions />} />
+                <Route path={URL.SEE_RESULTS} element={<Results />} />
+              </>
+            )}
 
-          <Route path="*" element={<Error />} />
-        </Routes>
+            <Route path="*" element={<Error />} />
+          </Routes>
+        </div>
         <Footer />
       </BrowserRouter>
     </ErrorBoundary>

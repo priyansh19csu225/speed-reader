@@ -69,7 +69,8 @@
     "Viewer.jsx",
     "SpeedReader.jsx",
     "Results.js",
-    "Header.js"
+    "Header.js",
+    "SpeedReader2.js"
   ],
   "browserslist": {
     "production": [
