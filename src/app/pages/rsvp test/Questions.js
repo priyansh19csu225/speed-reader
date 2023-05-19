@@ -54,15 +54,13 @@ function Questions() {
     }
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     if (submitted) return;
     if (answers.includes(null)) {
       setOpen(true);
       return;
     }
-
-    setSubmitted(true);
 
     let correct_count = 0;
 
@@ -73,6 +71,7 @@ function Questions() {
     }
 
     setCorrectAnswersCount(correct_count);
+    setSubmitted(true);
   };
 
   useEffect(() => {
@@ -107,7 +106,7 @@ function Questions() {
           })
         );
       });
-  }, [correct_answers]);
+  }, [submitted, correct_answers]);
 
   const navigate = useNavigate();
 
