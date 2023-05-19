@@ -73,7 +73,9 @@
     "Results.js",
     "Header.js",
     "SpeedReader2.js",
-    "SpeedReadGraph.js"
+    "SpeedReadGraph.js",
+    "StaticSpeedReader.jsx",
+    "LandingPage.js"
   ],
   "browserslist": {
     "production": [
