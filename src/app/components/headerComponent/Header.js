@@ -10,6 +10,9 @@ import URL from '../../constants/urls';
 import getFirstPathName from './header.helper';
 import { setUserRoleAndEmail } from '../../../redux/userSlice';
 import { showSnackBar } from '../../../redux/snackBarSlice';
+import { getRequest } from '../../services';
+import { Badge } from '@mui/material';
+import API_URL from '../../constants/apiUrls';
 
 const KEBAB_LINK = `color-1F2830 ${styles.navLink} px-3 py-1 w-100 subtitle-1`;
 const ACTIVE_KEBAB_LINK = styles.activeKebabLink;
@@ -69,6 +72,24 @@ function Header() {
     dispatch(setUserRoleAndEmail(payload));
   }, [user, isAdminLogin]);
 
+  const [showBadge, setShowBadge] = useState(false);
+
+  const [accountLevel, setAccountLevel] = useState(0);
+
+  useEffect(() => {
+    if (!user) return;
+    getRequest(`${API_URL.GET_USER_RESULT}?email=${user.email}`)
+      .then((res) => {
+        if (res.data?.account_level) {
+          setAccountLevel(res?.data?.account_level);
+          setShowBadge(true);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [user]);
+
   return (
     <nav className={`${styles.header} background-ffffff mb-2`}>
       <div
@@ -82,13 +103,23 @@ function Header() {
             width="200px"
           />
         </Link>
-        <div className="column">
-          <div>Badge</div>
+        <div className="column d-flex align-items-center">
+          {/* {user && (
+            <div className="me-3">{accountLevel}</div>
+          )} */}
+          {showBadge && (
+            <div className={`me-3 ${styles.badgeContainer}`}>
+              <div className={styles.badge}>
+                <span className={styles.badgeNumber}>{accountLevel}</span>
+              </div>
+            </div>
+          )}
           {user && (
             <Typography component="span" className="me-3" color="blue">
               {user?.email}
             </Typography>
           )}
+
           <IconButton onClick={handleOpenActionMenu}>
             <div className={`background-1D8FF2 ${styles.groupedRoutes} px-2 `}>
               <Typography

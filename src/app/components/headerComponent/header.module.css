@@ -2,6 +2,7 @@
   box-shadow: 0rem 0.1875rem 0.5rem rgba(72, 178, 255, 0.16);
   z-index: 2;
 }
+
 .logo {
   font-style: normal;
   font-weight: 700;
@@ -10,10 +11,12 @@
   cursor: pointer;
   text-decoration: none;
 }
+
 .groupedRoutes {
   border-radius: 1.25rem;
   cursor: pointer;
 }
+
 .navLink {
   text-decoration: none;
 }
@@ -38,11 +41,38 @@
 }
 
 .findDiv {
-  display: flex ;
-  justify-content: center ;
-  width: 100% ;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 .mainDiv {
-  flex-flow: wrap ;
+  flex-flow: wrap;
+}
+
+/* header.module.css */
+
+/* Styles for the badge container */
+.badgeContainer {
+  display: flex;
+  align-items: center;
+}
+
+/* Styles for the circular badge */
+.badge {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #ff0000;
+  /* Replace with your desired background color */
+  color: #ffffff;
+  /* Replace with your desired text color */
+}
+
+/* Styles for the badge number */
+.badgeNumber {
+  font-size: 14px;
 }

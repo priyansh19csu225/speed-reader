@@ -68,7 +68,8 @@
   "eslintIgnore": [
     "Viewer.jsx",
     "SpeedReader.jsx",
-    "Results.js"
+    "Results.js",
+    "Header.js"
   ],
   "browserslist": {
     "production": [
