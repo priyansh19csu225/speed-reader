@@ -208,7 +208,7 @@ function Results() {
               </Grid>
             ))}
           </Grid>
-          {/* <SpeedReadGraph results={results} /> */}
+          <SpeedReadGraph results={results} />
         </>
       )}
     </div>

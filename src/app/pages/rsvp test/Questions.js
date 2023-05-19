@@ -145,7 +145,7 @@ function Questions() {
   };
 
   return (
-    <Container className="d-flex flex-column subHeader">
+    <Container className="d-flex flex-column subHeader mb-5 pb-5">
       <h4 className="center-text m-2 p-2">Questions:</h4>
       <form onSubmit={handleSubmit}>
         {questions.map((question, index) => (

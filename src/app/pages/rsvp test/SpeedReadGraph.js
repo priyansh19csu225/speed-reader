@@ -110,10 +110,10 @@ const ReportGraph = ({ results }) => {
   //
   return (
     <div>
-      <Bar data={chartData} options={options} height="100px" width="300px" />
+      <Bar data={chartData} options={options} height="50px" width="100px" />
       {/* <Bar data={chartData2} options={options} height="100px" width="300px" /> */}
       {/* <Line data={chartData} options={options} height="100px" width="300px" /> */}
-      <Line data={chartData2} options={options} height="100px" width="300px" />
+      <Line data={chartData2} options={options} height="50px" width="100px" />
     </div>
   );
 };
