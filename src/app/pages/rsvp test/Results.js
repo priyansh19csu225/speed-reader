@@ -70,7 +70,7 @@ function Results() {
   }
 
   return (
-    <div className="container" style={{ paddingTop: '20px' }}>
+    <div className="container mb-5 pb-5" style={{ paddingTop: '20px' }}>
       {zeroFound || isLoading ? (
         <div className="d-flex flex-column justify-content-center align-items-center">
           <img
