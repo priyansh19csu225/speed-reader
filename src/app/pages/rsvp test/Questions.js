@@ -54,6 +54,20 @@ function Questions() {
     }
   };
 
+  function loopFinished() {
+    return new Promise((resolve) => {
+      let correct_count = 0;
+
+      for (let i = 0; i < total_questions; i += 1) {
+        const userAnswer = answers[i];
+        const actualAnswer = questions[i].answers[0];
+        if (userAnswer === actualAnswer) correct_count += 1;
+      }
+
+      resolve(correct_count);
+    });
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
     if (submitted) return;
@@ -62,21 +76,13 @@ function Questions() {
       return;
     }
 
-    let correct_count = 0;
-
-    for (let i = 0; i < total_questions; i += 1) {
-      const userAnswer = answers[i];
-      const actualAnswer = questions[i].answers[0];
-      if (userAnswer === actualAnswer) correct_count += correct_count;
-    }
-
-    setCorrectAnswersCount(correct_count);
-    setSubmitted(true);
+    loopFinished().then((correct_count) => {
+      setCorrectAnswersCount(correct_count);
+      setSubmitted(true);
+    });
   };
 
   useEffect(() => {
-    if (!submitted) return;
-
     postRequest(API_URL.SAVE_RESULT, {
       email,
       comprehension_id,
@@ -106,7 +112,7 @@ function Questions() {
           })
         );
       });
-  }, [submitted, correct_answers]);
+  }, [correct_answers]);
 
   const navigate = useNavigate();
 
