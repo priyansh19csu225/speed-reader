@@ -1,5 +1,12 @@
 const URL = {
   HOME: '/',
+  ADD_COMPREHENSION: '/add',
+  DAILY_EXERCISE_COMPREHENSION: '/daily-exercise-comprehension',
+  READ: '/read',
+  READ_COMPREHENSION: '/read-comprehension',
+  ALL_COMPREHENSIONS: '/comprehensions',
+  QUESTIONS: '/questions',
+  SEE_RESULTS: '/see-results',
 };
 export default URL;
 

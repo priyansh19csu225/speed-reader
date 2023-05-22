@@ -8,10 +8,8 @@ import { showSnackBar } from '../../../redux/snackBarSlice';
 import ErrorSnackBar from '../../components/snackBar/ErrorSnackBar';
 
 function App() {
-
   const snackBarShow = useSelector((state) => state.globalSnackbar);
   const dispatch = useDispatch();
-  
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -21,17 +19,17 @@ function App() {
       showSnackBar({
         setopen: false,
         message: '',
-        severity: '',
+        severity: 'success',
       })
     );
   };
 
-  return(
+  return (
     <>
-      <RoutesComponent setShowFooter />
-  
+      <RoutesComponent />
       <ErrorSnackBar opensnackbar={snackBarShow} handleClose={handleClose} />
-    </>);
+    </>
+  );
 }
 
 export default App;

@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 const axiosClient = axios.create();
 
 // Intercept request
@@ -11,8 +12,7 @@ axiosClient.interceptors.request.use(
   { synchronous: true }
 );
 
-
-axiosClient.defaults.baseURL = '/api/v1';
+axiosClient.defaults.baseURL = 'https://readmaster.azurewebsites.net/api';
 
 axiosClient.defaults.headers = {
   'Content-Type': 'application/json',

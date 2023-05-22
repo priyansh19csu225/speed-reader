@@ -13,7 +13,6 @@ function ErrorSnackBar(props) {
   const { opensnackbar, handleClose } = props;
   return (
     <div>
-      {!!opensnackbar && !!opensnackbar.message && (
         <Snackbar
           open={opensnackbar.setopen}
           autoHideDuration={
@@ -29,7 +28,6 @@ function ErrorSnackBar(props) {
             {opensnackbar.message}
           </Alert>
         </Snackbar>
-      )}
     </div>
   );
 }
