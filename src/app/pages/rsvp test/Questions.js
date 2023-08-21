@@ -30,7 +30,7 @@ function Questions() {
     (state) => state.user.selectedComprehension.title
   );
   const wpm = useSelector((state) => state.user.wpm);
-  const [correct_answers, setCorrectAnswersCount] = useState(0);
+  const [correct_answers, setCorrectAnswersCount] = useState(null);
   const total_questions = questions?.length;
   const comprehension_level = useSelector(
     (state) => state.user.selectedComprehension.level
@@ -83,6 +83,7 @@ function Questions() {
   };
 
   useEffect(() => {
+    if (!correct_answers) return;
     postRequest(API_URL.SAVE_RESULT, {
       email,
       comprehension_id,
